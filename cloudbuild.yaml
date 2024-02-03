@@ -1,0 +1,23 @@
+steps:
+  # Build the Docker image with commit SHA tag
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/udemy-mlops-413201/demo-flask-app:$COMMIT_SHA', '.']
+
+  # Push the image to Container Registry with commit SHA tag
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/udemy-mlops-413201/demo-flask-app:$COMMIT_SHA']
+
+  # Deploy to Cloud Run using the image with commit SHA tag
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'demo-flask-app'
+      - '--image'
+      - 'gcr.io/udemy-mlops-413201/demo-flask-app:$COMMIT_SHA'
+      - '--region'
+      - 'us-central1'
+
+images:
+  - 'gcr.io/udemy-mlops-413201/demo-flask-app:$COMMIT_SHA'

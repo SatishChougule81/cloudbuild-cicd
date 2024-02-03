@@ -6,6 +6,8 @@ from werkzeug.urls import url_quote
 app = Flask(__name__)
 client = bigquery.Client()
 
+
+
 @app.route('/')
 def main(big_query_client=client):
     table_id = "udemy-mlops-413201.test_schema.us_states"

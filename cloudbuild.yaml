@@ -21,3 +21,6 @@ steps:
 
 images:
   - 'gcr.io/udemy-mlops-413201/demo-flask-app:$COMMIT_SHA'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
